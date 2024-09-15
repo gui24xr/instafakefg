@@ -60,3 +60,19 @@ CREATE TABLE IF NOT EXISTS "commentsLikes"(
 	FOREIGN KEY("userId") REFERENCES "users"("userId") ON DELETE CASCADE,
 	FOREIGN KEY("commentId") REFERENCES "comments"("commentId") ON DELETE CASCADE
 );
+
+
+CREATE TABLE IF NOT EXISTS "followers"(
+	"followingId" UUID DEFAULT uuid_generate_v4(),
+	"followerId" UUID NOT NULL,
+	"followedId" UUID NOT NULL,
+	FOREIGN KEY("followerId") REFERENCES "users"("userId") ON DELETE CASCADE,
+	FOREIGN KEY("followedId") REFERENCES "users"("userId") ON DELETE CASCADE,
+	CONSTRAINT unique_following UNIQUE ("followerId", "followedId")
+);
+
+CREATE TABLE IF NOT EXISTS "felipa"(
+	id UUID DEFAULT uuid_generate_v4(),
+	nombre VARCHAR NOT NULL
+);
+
