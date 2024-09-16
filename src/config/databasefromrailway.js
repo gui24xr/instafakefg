@@ -1,18 +1,15 @@
 import { Sequelize } from "sequelize";
 
-//Creo la conexion a la base de datos.
-const DB_NAME = 'railway'
-const DB_USER = 'postgres'//'gui24'
-const DB_PASSWORD = 'DOvWppNEVXeLxhJxPqIZoZpgxUImHwld'
-const CONNECTION_VALUES = {host:'postgres.railway.internal',port:'5432',dialect:'postgres',  dialectOptions: {multipleStatements: true }}
-
 //Creo la referencia a mi base de datos.
-export const database = new Sequelize(DB_NAME,DB_USER,DB_PASSWORD,CONNECTION_VALUES)
+export const database = new Sequelize('postgresql://postgres:MIeIguVTiVTpjBgMwDBlLoDWdooFzsWY@junction.proxy.rlwy.net:54136/railway')
 //Inicio sesion en ella.
 
-  export function connectToDatabase(){
-    database.sync()
-    database.authenticate()
-    .then(console.log('Conectado a la base de datos OK en railway... !!!',))
-    .catch(res => console.log('Falla al conectarse en railway!!!', res))
+  export async function connectToDatabase(){
+    try {
+      database.sync() //CREA, SI NO EXISTEN, LAS tablas tal cual las pide el modelo de sequelize.
+      await database.authenticate();
+      console.log('Estamos usando la base de datos en railway');
+    } catch (error) {
+      console.error('Unable to connect to the database en railway:', error);
+    }
 }

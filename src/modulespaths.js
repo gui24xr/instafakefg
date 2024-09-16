@@ -1,8 +1,8 @@
 
-import { database, connectToDatabase } from "./config/databaselocal.js";
+//import { database, connectToDatabase } from "./config/databaselocal.js";
 
-//import { database } from "./config/databasefromrailway.js";
-//import { connectToDatabase } from "./config/databasefromrailway.js";
+import { database, connectToDatabase } from "./config/databasefromrailway.js";
+
 
 import { routerSessions, routerUsers, routerComments,routerPosts} from "./routes.js"
 
