@@ -1,5 +1,6 @@
 import { database } from "../../modulespaths.js";
-import { DataTypes } from "sequelize";
+import { DataTypes, UUID } from "sequelize";
+import { UsersModel } from "./users.models.js";
 
 export const PostsModel = database.define("posts",{
     postId: {
@@ -11,13 +12,41 @@ export const PostsModel = database.define("posts",{
     textContent:{
         type: DataTypes.TEXT,
         allowNull: true
+    },
+    likesCount:{
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+    },
+    urlImage: {
+        type: DataTypes.STRING(300),
+        allowNull: true,
+    },
+    userId:{
+        type: UUID,
+        allowNull: false,
+        references:{
+            model: UsersModel,
+            key: 'userId'
+        }
     }
+
     
     
 },
 {tableName:"posts", timestamps: false})
 
 
+PostsModel.belongsTo(UsersModel, {
+    foreignKey: 'userId',
+    onDelete: 'CASCADE', 
+  });
+
+  UsersModel.hasMany(PostsModel, { 
+    foreignKey: 'userId' });
 
 /*
 CREATE TABLE IF NOT EXISTS "posts"(

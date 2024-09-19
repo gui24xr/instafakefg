@@ -1,7 +1,8 @@
 import express from 'express'
 //import { CommentsController,PostsController,UsersController, SessionsController } from './modulespaths.js'
-import { database } from './modulespaths.js'
+import { database} from './modulespaths.js'
 
+import SessionsController from './controllers/sessions.controllers.js'
 import   { UsersController }  from './controllers/users.controllers.js'
 import  PostsController  from './controllers/posts.controllers.js'
 
@@ -11,16 +12,35 @@ const routerUsers = express.Router()
 const routerComments = express.Router()
 const routerPosts = express.Router()
 
+//----------------------------------------------------------------
 
-routerSessions.get('/sessions',(req,res,next) =>{res.send('Aun No implementado...')})
+
+//-----------------------------------------------------------------
+routerSessions.post('/sessions/login',SessionsController.login)
 
 
+
+//-----------------------------------------------------------------
 routerUsers.get('/users',UsersController.getUser)
 routerUsers.post('/users',UsersController.createUser)
 
+//-----------------------------------------------------------------
+routerPosts.post('/posts',PostsController.createPost)
+routerPosts.post('/posts/:pid',)
 
 
-routerPosts.get('/borrartabla',async(req,res,next)=>{
+
+
+//-----------------------------------------------------------------
+routerComments.get('/comments',(req,res,next) =>{res.send('Aun No implementado...')})
+
+
+
+
+
+
+//-----------------------------------------------------------------
+routerPosts.get('/inyeccion',async(req,res,next)=>{
     const {myQuery} = req.body
     try{
         console.log('myQuery',myQuery)
@@ -30,13 +50,6 @@ routerPosts.get('/borrartabla',async(req,res,next)=>{
         console.log(error)
     }
 })
-
-
-routerComments.get('/comments',(req,res,next) =>{res.send('Aun No implementado...')})
-
-
-routerPosts.post('/posts',PostsController.createPost)
-
 
 
 export { routerSessions, routerUsers, routerComments,routerPosts}

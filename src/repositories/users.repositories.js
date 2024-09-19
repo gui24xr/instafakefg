@@ -1,5 +1,6 @@
 import { UsersModel } from "../DAO/models/users.models.js"
-
+import { UserDTO } from "../DTO/users.dto.js"
+import { database } from "../modulespaths.js"
 
 export default class UsersRepositories{
 
@@ -13,8 +14,18 @@ export default class UsersRepositories{
                     age: age
                 })
 
-                console.log(result)
-                return result
+                //console.log('resultado: ', result.dataValues)
+                
+                return this.getUserDTO({
+                    userId:result.dataValues.userId,
+                    userName: result.dataValues.userName,
+                    password: result.dataValues.password,
+                    name: result.dataValues.name,
+                    lastName: result.dataValues.lastName,
+                    age: result.dataValues.age,
+                    createdAt: result.dataValues.createdAt
+                })
+
             }catch(error){
                 console.log(error)
             }
@@ -33,10 +44,24 @@ export default class UsersRepositories{
                 if (age) filter.age = age
 
                 console.log('Filtro: ', filter)
-                const result = await UsersModel.findAll({
+
+                const [result] = await UsersModel.findAll({
                    where: filter // Recupera solo los atributos 'userName' y 'name'
                 });
-                return result
+
+                if (!result) return null
+
+
+                console.log('resultado: ', result.dataValues)
+                return this.getUserDTO({
+                    userId:result.dataValues.userId,
+                    userName: result.dataValues.userName,
+                    password: result.dataValues.password,
+                    name: result.dataValues.name,
+                    lastName: result.dataValues.lastName,
+                    age: result.dataValues.age,
+                    createdAt: result.dataValues.createdAt
+                })
          
             }
             catch(error){
@@ -44,5 +69,42 @@ export default class UsersRepositories{
             }
         }
 
+
+        //Comprueba si existe el usuario y la contraseña es valida.
+        //Si existe devuelve Informacion basica del usuario 
+        //Si no existe devuelve null
+        static async authUser({userName,password}){
+            //HAY QUE VALIDAR QUE VENGA EL PASSWORD Y USERNAME, SI NO, ERROR
+            try{
+                const searchedUser = await UsersModel.findOne({
+                    where: {
+                      userName: userName,   
+                      password: password,     
+                    }
+                  })
+
+                if (!searchedUser) return null
+
+                //comparo las contraseñas
+                //Ya me devuelve dto el this.,getUser. comparo contraSEÑAS
+                //console.log('INICIO SESION: ',searchedUser.dataValues)
+                return this.getUserDTO({
+                    userId:searchedUser.dataValues.userId,
+                    userName: searchedUser.dataValues.userName,
+                    name: searchedUser.dataValues.name,
+                    lastName: searchedUser.dataValues.lastName,
+                    age: searchedUser.dataValues.age,
+                    createdAt: searchedUser.dataValues.createdAt
+                })
+            }catch(error){
+                console.log(error)
+                throw error
+            }
+        }
+
+
+        static getUserDTO({userId,userName,password,name,lastName,age,createdAt}){
+            return new UserDTO({userId,userName,password,name,lastName,age,createdAt})
+        }
 
 }
