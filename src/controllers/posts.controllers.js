@@ -21,4 +21,16 @@ export default class PostsController{
             res.status(500).json(error)
         }
     }
+
+    
+    static async likePost(req,res,next){
+        const {pid:postId} = req.params
+        //Tenemos que quitar el user del tqoque
+        const {uid:userId} = req.body
+        try{
+
+        }catch(error){
+            res.status(500).json(error)
+        }
+    }
 }

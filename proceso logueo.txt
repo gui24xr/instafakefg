@@ -1,0 +1,22 @@
+1- INGRESAN LOS DTOS USUARIO CONTRASEÑA AL ENDPOINT LOGIN
+
+2- SE LE PIDE AL REPO DE USUARIOS EL usuario ingresado
+
+3- si existe el user, se compara la CONTRASEÑA
+
+4- si la contraqseña esta mal se lanza error, si esta bien se genera un token y se envia al cliente a travez de cookies(recordar de poner paquete).
+
+
+----------------------------------------------------------
+
+
+
+miidleware que lee el token y pone en el objeto req los datos del user con token activo
+
+
+
+--------form 1:
+le dice si puede iniciar sesion o no y luego el repo pide los datos y genera el token
+
+forma2
+le dice si existe, si existe le deveulve el dto
