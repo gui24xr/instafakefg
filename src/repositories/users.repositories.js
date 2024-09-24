@@ -45,24 +45,17 @@ export default class UsersRepositories{
 
                 console.log('Filtro: ', filter)
 
-                const [result] = await UsersModel.findAll({
+                const resultArray = await UsersModel.findAll({
                    where: filter // Recupera solo los atributos 'userName' y 'name'
                 });
 
-                if (!result) return null
+              
+                if (resultArray.length<1) return null
 
+                const arrayDTOList = resultArray.map(item => (this.getUserDTO(item.dataValues)))
 
-                console.log('resultado: ', result.dataValues)
-                return this.getUserDTO({
-                    userId:result.dataValues.userId,
-                    userName: result.dataValues.userName,
-                    password: result.dataValues.password,
-                    name: result.dataValues.name,
-                    lastName: result.dataValues.lastName,
-                    age: result.dataValues.age,
-                    createdAt: result.dataValues.createdAt
-                })
-         
+                return arrayDTOList
+            
             }
             catch(error){
                 console.log(error)
