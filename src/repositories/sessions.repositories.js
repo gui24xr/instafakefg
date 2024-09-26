@@ -14,7 +14,10 @@ export default class SessionsRepositories{
            //Si fue autorizado deuvelve el dto y si no null entonces
            if (!authResult) throw new Error('El usuario o contraseña no existen...')
 
-            return generateJWT(authResult)
+            return {
+                token:generateJWT(authResult),
+                userData: authResult
+            }
         }catch(error){
             console.log(error)
             throw error

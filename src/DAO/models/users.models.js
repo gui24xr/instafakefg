@@ -17,6 +17,11 @@ export const UsersModel = database.define("users",{
         type: DataTypes.STRING(20),
         allowNull: false,
     },
+    profilePicture: {
+        type: DataTypes.STRING(255),
+        allowNull: false,
+        defaultValue: './defaultprofilepicture.jpg'
+    },
     recoveryPasswordCode: {
         type: DataTypes.INTEGER,
         validate: {

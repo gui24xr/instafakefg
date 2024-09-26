@@ -5,6 +5,7 @@ import { database } from "../modulespaths.js"
 export default class UsersRepositories{
 
         static async createUser({userName, password, name, lastName, age}){
+            console.log('VAMOS  ACREAR UN USUARIO')
             try{
                 const result = await UsersModel.create({
                     userName:userName,
@@ -43,17 +44,14 @@ export default class UsersRepositories{
                 if (privateProfile) filter.privateProfile = privateProfile
                 if (age) filter.age = age
 
-                console.log('Filtro: ', filter)
+                //console.log('Filtro: ', filter)
 
                 const resultArray = await UsersModel.findAll({
                    where: filter // Recupera solo los atributos 'userName' y 'name'
                 });
 
-              
                 if (resultArray.length<1) return null
-
                 const arrayDTOList = resultArray.map(item => (this.getUserDTO(item.dataValues)))
-
                 return arrayDTOList
             
             }

@@ -5,6 +5,7 @@ import UsersRepositories from "../repositories/users.repositories.js";
 export default class SessionsController{
 
     static async login(req,res,next){
+        //console.log('PETICION:', req)
         const {userName,password} = req.body
         console.log('req.body:', req.body)
         try{
@@ -25,13 +26,14 @@ export default class SessionsController{
             return res.status(200).json({
                 status: 'ok',
                 message:'Peticion OK !',
-                data: data
+                data: data.userData
             })
         }catch(error){
             //console.log('Esto es en controller login: ', error)
             //res.status(500).json(error)
             console.log('LLegue al login de controller')
-            next(error)
+            //next(error)
+            res.status(401).json({message:'El usuario no existe o la contraseña es incorrecta...'})
         }
     }
 
