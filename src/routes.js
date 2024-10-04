@@ -26,7 +26,13 @@ routerUsers.post('/users',UsersController.createUser)
 
 //-----------------------------------------------------------------
 routerPosts.post('/posts',PostsController.createPost)
-routerPosts.post('/posts/:pid',)
+routerPosts.post('/posts/:pid') // este es tramposo}
+routerPosts.get('/posts/:uid',async(req,res,next)=>{
+    const {uid:userId} = req.params
+    res.send('hola ppeito')
+})
+
+
 
 
 
