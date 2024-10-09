@@ -13,6 +13,9 @@ import {
 import { getUserFromTokenMiddleware } from "./middlewares/getLoggedUser.js";
 export const app = express();
 
+
+/*IDIOMA AZTECA*/
+
 //Middlewares
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SIGN || "lupe"));
@@ -25,22 +28,7 @@ app.use(
   })
 );
 
-saidjolaido;
-sa;
-POJMda;
-SOmkd;
-KMsal;
-KMds;
-MKal;
-database;
-LMKDsa;
-Lmd;
-WEKMsf;
-LKmds;
-ZLFKMds;
-DocumentFragment;
-RKmf;
-DOSmafs;
+
 app.use(getUserFromTokenMiddleware); //En cada solicitud verifica la existencia de token y nos provee de req.currentUser.
 
 //routes
