@@ -14,7 +14,7 @@ import { getUserFromTokenMiddleware } from "./middlewares/getLoggedUser.js";
 export const app = express();
 
 
-/*IDIOMA AZTECA*/
+/*IDIOMA AZTECA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA*/
 
 //Middlewares
 app.use(express.json());
